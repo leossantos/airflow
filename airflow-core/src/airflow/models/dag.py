@@ -631,9 +631,9 @@ class DagModel(Base):
         you should ensure that any scheduling decisions are made in a single transaction -- as soon as the
         transaction is committed it will be unlocked.
 
-        For asset-triggered scheduling, DAGs that have ``AssetDagRunQueue`` rows but no matching
+        For asset-triggered scheduling, Dags that have ``AssetDagRunQueue`` rows but no matching
         ``SerializedDagModel`` row are omitted from ``triggered_date_by_dag`` until serialization exists;
-        queue rows are **not** deleted here so the scheduler can re-evaluate on a later run.
+       ADRQs are **not** deleted here so the scheduler can re-evaluate on a later run.
 
         :meta private:
         """

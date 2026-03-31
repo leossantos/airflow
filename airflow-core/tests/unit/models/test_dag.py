@@ -2050,7 +2050,7 @@ class TestDagModel:
     def test_dags_needing_dagruns_skips_adrq_when_serialized_dag_missing(
         self, session, caplog, testing_dag_bundle
     ):
-        """ADRQ rows for a dag_id without SerializedDagModel must be skipped (no triggered_date_by_dag).
+        """ADRQ rows for a Dag without SerializedDagModel must be skipped (no triggered_date_by_dag).
 
         Rows must remain in ``asset_dag_run_queue`` so the scheduler can re-evaluate on a later run once
         ``SerializedDagModel`` exists (``dags_needing_dagruns`` only drops them from the in-memory
