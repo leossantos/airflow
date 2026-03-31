@@ -633,7 +633,7 @@ class DagModel(Base):
 
         For asset-triggered scheduling, Dags that have ``AssetDagRunQueue`` rows but no matching
         ``SerializedDagModel`` row are omitted from ``triggered_date_by_dag`` until serialization exists;
-       ADRQs are **not** deleted here so the scheduler can re-evaluate on a later run.
+        ADRQs are **not** deleted here so the scheduler can re-evaluate on a later run.
 
         :meta private:
         """
@@ -682,10 +682,10 @@ class DagModel(Base):
         }
         ser_dags = SerializedDagModel.get_latest_serialized_dags(dag_ids=list(dag_statuses), session=session)
         ser_dag_ids = {ser_dag.dag_id for ser_dag in ser_dags}
-        missing_from_serialized = set(adrq_by_dag.keys()) - ser_dag_ids
-        if missing_from_serialized:
+        if missing_from_serialized := set(adrq_by_dag.keys()) - ser_dag_ids:
             log.debug(
-                "DAGs in ADRQ but missing SerializedDagModel (skipping — condition cannot be evaluated): %s",
+                "Dags have queued asset events (ADRQ), but are not found in the serialized_dag table."
+                " — skipping Dag run creation: %s",
                 sorted(missing_from_serialized),
             )
             for dag_id in missing_from_serialized:
