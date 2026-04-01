@@ -2085,7 +2085,10 @@ class TestDagModel:
             _query, triggered_date_by_dag = DagModel.dags_needing_dagruns(session)
 
         assert orphan_dag_id not in triggered_date_by_dag
-        assert "not found in the serialized_dag table" in caplog.text
+        assert (
+            "Dags have queued asset events (ADRQ), but are not found in the serialized_dag table."
+            in caplog.text
+        )
         assert orphan_dag_id in caplog.text
         assert (
             session.scalar(
