@@ -683,7 +683,7 @@ class DagModel(Base):
         ser_dags = SerializedDagModel.get_latest_serialized_dags(dag_ids=list(dag_statuses), session=session)
         ser_dag_ids = {ser_dag.dag_id for ser_dag in ser_dags}
         if missing_from_serialized := set(adrq_by_dag.keys()) - ser_dag_ids:
-            log.debug(
+            log.info(
                 "Dags have queued asset events (ADRQ), but are not found in the serialized_dag table."
                 " — skipping Dag run creation: %s",
                 sorted(missing_from_serialized),
